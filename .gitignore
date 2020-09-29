@@ -1,6 +1,8 @@
 /node_modules
 /bulid
 
+dev.js
+
 .DS_Store
 
 npm-debug.log*

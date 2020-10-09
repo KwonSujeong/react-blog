@@ -17,6 +17,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 
+app.get('/api/hello', (req, res) => {
+    res.send("안녕하세요~")
+})
+
 // role 1 어드민 role 2 특정부서 어드민
 // role 0 -> 일반유저 role 0 아니면 관리자
 app.get('/api/users/auth', auth, (req, res) => {

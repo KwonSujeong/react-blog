@@ -40,6 +40,28 @@ function DetailPage(props) {
         setComments(Comments.concat(newComment))
     }
 
+    const removeFunction = (e) => {
+        e.preventDefault();
+
+        Axios.delete(`/api/video/deleteVideo/${videoId}`)
+            .then(response => {
+                if (response.data.success) {
+
+                    alert('게시글을 삭제했습니다.')
+                    setTimeout(() => {
+                        props.history.push('/')
+                    }, 2000);
+
+                } else {
+                    alert('게시글 삭제에 실패했습니다.')
+                }
+            })
+    }
+
+    const moveUpload = (e) => {
+        props.history.push('/post/upload')
+    }
+
 
     if (VideoDetail.writer) {
         return (
@@ -57,7 +79,12 @@ function DetailPage(props) {
                                 description={VideoDetail.description}
                             />
                         </List.Item>
-                        {/* {VideoDetail.writer.role === '1'
+                        <div>
+
+                            <input type="button" value="수정" onClick={moveUpload} />
+                            <input type="button" value="삭제" onClick={removeFunction} />
+                        </div>
+                        {/* {user.userData.isAdmin === true
                             ?
                             <div>
 
@@ -65,14 +92,6 @@ function DetailPage(props) {
                                 <input type="button" value="삭제" />
                             </div>
                             : null} */}
-                        {user.userData.isAdmin === true
-                            ?
-                            <div>
-
-                                <input type="button" value="수정 " />
-                                <input type="button" value="삭제" />
-                            </div>
-                            : null}
                         {/* Comments */}
                         <Comment commentLists={Comments} postId={videoId} refreshFunction={refreshFunction} />
                     </div>
